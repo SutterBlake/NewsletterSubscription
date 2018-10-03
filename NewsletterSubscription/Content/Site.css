@@ -22,3 +22,21 @@ select,
 textarea {
     max-width: 280px;
 }
+
+
+#sectionTitle {
+    margin-top: 1.5em;
+    margin-bottom: 2em;
+}
+
+
+#sectionAbout > div > h2, #sectionAbout > div > h3 {
+    color: #00695b;
+}
+
+#sectionAbout > div:first-child {
+    margin-top: 1.5em;
+}
+#sectionAbout > div:last-child {
+    margin-bottom: 2em;
+}

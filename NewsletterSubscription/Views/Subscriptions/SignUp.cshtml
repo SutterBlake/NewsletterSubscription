@@ -1,0 +1,83 @@
+﻿@model NewsletterSubscription.Models.Subscription
+
+@{
+    ViewBag.Title = "Sign Up";
+}
+
+<div id="sectionTitle">
+    <h2>@ViewBag.Title</h2>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @if (ViewBag.Message != null || @ViewBag.MessageType != null)
+        {
+            <div id="messageBox" class="alert alert-@ViewBag.MessageType" role="alert">@ViewBag.Message</div>
+        }
+        else
+        {
+            <div id="messageBox" class="" role="alert"></div>
+        }
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                <span class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "jondoe@unknown.ie" } })
+                </span>
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Source, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                <span class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-question-sign"></i></span>
+                    @Html.EnumDropDownListFor(model => model.Source, htmlAttributes: new { @class = "form-control", @rows = "4" })
+                </span>
+                @Html.ValidationMessageFor(model => model.Source, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ReasonSignUp, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                <span class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
+                    @Html.TextAreaFor(model => model.ReasonSignUp, new { @class = "form-control", @rows = "3", @placeholder = "(Optional field)" })
+                </span>
+                @Html.ValidationMessageFor(model => model.ReasonSignUp, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.HiddenFor(model => model.SubscriptionDate, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Sign Up" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to Subscriptors", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jsFile")
+}

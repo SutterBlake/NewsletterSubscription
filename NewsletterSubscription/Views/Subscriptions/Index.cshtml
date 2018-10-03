@@ -1,0 +1,60 @@
+﻿@model IEnumerable<NewsletterSubscription.Models.Subscription>
+
+@{
+    ViewBag.Title = "Subscriptors list";
+}
+
+<div id="sectionTitle">
+    <h2>@ViewBag.Title</h2>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Source)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReasonSignUp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubscriptionDate)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="vertical-align: middle !important;">
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td style="vertical-align: middle !important;">
+                @Html.DisplayFor(modelItem => item.Source)
+            </td>
+            <td style="vertical-align: middle !important;">
+                @Html.DisplayFor(modelItem => item.ReasonSignUp)
+            </td>
+            <td style="vertical-align: middle !important;">
+                @Html.DisplayFor(modelItem => item.SubscriptionDate)
+            </td>
+            <td style="vertical-align: middle !important;">
+
+                @using (Ajax.BeginForm("Delete", new { id = item.ID }, new AjaxOptions { HttpMethod = "POST" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <button class="btn btn-danger" type="submit" onclick="return confirmRemove('@item.Email')">
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </button>
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jsFile")
+}
